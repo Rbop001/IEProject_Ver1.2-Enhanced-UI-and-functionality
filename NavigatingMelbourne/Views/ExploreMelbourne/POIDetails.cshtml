@@ -1,0 +1,101 @@
+﻿@model NavigatingMelbourne.Models.POI
+
+@{
+    ViewBag.Title = "POIDetails";
+}
+
+<section class="banner1">
+</section>
+
+<section>
+    <div class="container py-4 mt-2">
+        <h2 class="tittle text-center mb-3">@Model.Name</h2>
+
+        <div class="row my-4">
+            <div class="col-12">
+                <div id="divMap" style="height: 300px;width: 100%"></div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-12">
+                <h5>Address</h5>
+                <p>@Model.StreetAddress @Model.AddressArea</p>
+            </div>
+
+
+        </div>
+        <div class="row  my-3">
+            <div class="col-md-4 my-2">
+                <h5>Cateogry</h5>
+                <p>@Model.POIType</p>
+            </div>
+            <div class="col-md-4 my-2">
+                <h5>Sub Category</h5>
+                <p>@Model.SubType</p>
+            </div>
+
+        </div>
+
+        <div class="row">
+            @if (Model.PlaceSeats.HasValue)
+            {
+                <div class="col-md-4 my-2">
+                    <h5>No of seats</h5>
+                    <p>@Model.PlaceSeats</p>
+                </div>
+            }
+            @if (Model.POIYear.HasValue)
+            {
+                <div class="col-md-4 my-2">
+                    <h5>Established Year</h5>
+                    <p>@Model.POIYear</p>
+                </div>
+            }
+        </div>
+
+
+
+    </div>
+</section>
+
+
+<script type="text/javascript">
+    //(-37.82386264\, 144.9613589)
+        var name = '@Model.Name';
+    var t = '@Model.Location';
+        var address =  '@Model.StreetAddress';
+
+        var temp = t.replace(/[(\\)]/g, '').split(',');
+        var marker = { lat: temp[0].trim(), lng: temp[1].trim() };
+        window.onload = function () {
+            var mapOptions = {
+                center: new google.maps.LatLng(marker.lat, marker.lng),
+                zoom: 17,
+                mapTypeId: google.maps.MapTypeId.ROADMAP
+            };
+            var map = new google.maps.Map(document.getElementById("divMap"), mapOptions);
+
+            var myLatlng = new google.maps.LatLng(marker.lat, marker.lng);
+                var markerData = new google.maps.Marker({
+                    position: myLatlng,
+                    map: map,
+                    title: name
+                });
+            //markerData.setIcon('http://maps.google.com/mapfiles/ms/icons/green-dot.png')
+
+
+             // Create our info window content
+        var infoWindowContent = '<div class="info_content">' +
+             '<h6>' + name +'</h6>' + '<p>' + address + '</p>' +
+        '</div>';
+        // Initialise the inforWindow
+        var infoWindow = new google.maps.InfoWindow({
+            content: infoWindowContent
+        });
+
+        google.maps.event.addListener(markerData, 'click', function () {
+            infoWindow.open(map, markerData);
+        });
+
+        }
+</script>

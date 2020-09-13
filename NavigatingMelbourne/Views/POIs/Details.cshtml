@@ -1,0 +1,74 @@
+﻿@model NavigatingMelbourne.Models.POI
+
+@{
+    ViewBag.Title = "Details";
+}
+
+
+<main id="main">
+
+    <section id="about">
+        <div class="container" data-aos="fade-up">
+
+            <div class="row">
+                <div class="col-12">
+                    <div id="divMap" style="height: 300px;width: 100%"></div>
+                </div>
+
+            </div>
+            <dl class="dl-horizontal">
+                <dt>
+                    @Html.DisplayNameFor(model => model.Street_address)
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.Street_address)
+                </dd>
+
+                <dt>
+                    @Html.DisplayNameFor(model => model.Trading_name)
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.Trading_name)
+                </dd>
+                <dt>
+                    @Html.DisplayNameFor(model => model.Industry_ANZSIC4_description)
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.Industry_ANZSIC4_description)
+                </dd>
+            </dl>
+            <p>
+                @Html.ActionLink("Back", "Index")
+            </p>
+        </div>
+       
+
+    </section>
+</main>
+<script type="text/javascript">
+    //(-37.82386264\, 144.9613589)
+        var modelData = @Html.Raw(Json.Encode(Model));
+        var t = modelData.Location;
+        var temp = t.replace(/[(\\)]/g, '').split(',');
+        var marker = { lat: temp[0].trim(), lng: temp[1].trim() };
+        window.onload = function () {
+            var mapOptions = {
+                center: new google.maps.LatLng(marker.lat, marker.lng),
+                zoom: 17,
+                mapTypeId: google.maps.MapTypeId.ROADMAP
+            };
+            var map = new google.maps.Map(document.getElementById("divMap"), mapOptions);
+
+            var myLatlng = new google.maps.LatLng(marker.lat, marker.lng);
+                var markerData = new google.maps.Marker({
+                    position: myLatlng,
+                    map: map,
+                    title: modelData.Trading_name
+                });
+            //markerData.setIcon('http://maps.google.com/mapfiles/ms/icons/green-dot.png')
+
+        }
+</script>

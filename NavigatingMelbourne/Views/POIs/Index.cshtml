@@ -1,0 +1,24 @@
+﻿@model IEnumerable<NavigatingMelbourne.Models.POI>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<main id="main">
+    <section id="intro">
+        <div class="container">
+            <img src="~/Content/Images/great-ocean-road-tour.jpg" alt="" class="img-fluid">
+        </div>
+        <div class="intro-info" data-aos="zoom-in" data-aos-delay="100" >
+           <h2>Welcome. Come explore this wonderful city with us. Select your search category.</h2>
+        </div>
+</section>
+    <section id="categories">
+        <div class="container">
+            <img src="~/Content/Images/Supermarkets.jpg" alt="" class="img-fluid">
+        </div>
+        <div class="intro-info" data-aos="zoom-in" data-aos-delay="100">
+            @Html.ActionLink("Supermarkets", "~/Controllers/Supermarkets/Index")
+        </div>
+    </section>
+</main>

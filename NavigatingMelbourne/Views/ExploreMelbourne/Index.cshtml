@@ -1,0 +1,39 @@
+﻿@model List<NavigatingMelbourne.Models.Category>
+
+@{
+    ViewBag.Title = "Explore Melbourne";
+}
+
+<style>
+    .gallery-box img{
+        height: 250px;
+    }
+
+    .gallery-box h5{
+        margin: 1em auto;
+        color: black;
+    }
+</style>
+
+<section class="banner1">
+
+</section>
+<section class="gallery py-md-5">
+        <div class="container py-4 mt-2">
+            <h2 class="tittle text-center mb-3">Explore Melbource</h2>
+            <p class="tit text-center mx-auto">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Eius eum inventore consectetur dolorum, voluptatum possimus temporibus vel ab, nesciunt quod!</p>
+            <div class="row gallery-info pt-4 mt-md-4">
+                @foreach (var item in Model)
+                {
+                    <div class="col-12 col-sm-6 col-md-4 gallery-grids">
+                        <a href="@Url.Action("Popular", "ExploreMelbourne", new { id = @item.Id })" class="gallery-box">
+                            <img src="@item.ImagePath" alt="" class="img-responsive zoom-img">
+                            <h5 class="text-center mb-3" >@item.CategoryName</h5>
+                        </a>
+                    </div>
+
+                }
+
+            </div>
+        </div>
+    </section>

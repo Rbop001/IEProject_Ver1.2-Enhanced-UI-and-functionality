@@ -1,0 +1,54 @@
+﻿@model dynamic
+@{
+    ViewBag.Title = "Popular POI";
+}
+
+<section class="banner1">
+</section>
+
+<section>
+    <div class="container py-4 mt-2">
+        <h2 class="tittle text-center mb-3">@Model.Category.CategoryName</h2>
+        <p class="tit text-center mx-auto">@Model.Category.Description</p>
+        <div class="row mt-md-4">
+            <div class="col-12 my-2">
+                <h3 >Popular POIs</h3>
+            </div>
+            <div class="col-12">
+                <table id="popularPOI" class="table table-striped table-bordered">
+                    <thead>
+                        <tr>
+                            <th>Place Name</th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model.POIs)
+                        {
+                            <tr>
+                                <td>
+                                    <div class="lead"><b>@item.Name</b></div>
+                                    <div>
+                                        @item.POIType
+                                    </div>
+                                    <div>
+                                        <small>@item.SubType</small>
+                                    </div>
+                                </td>
+                                <td class="text-center">
+                                    <a href="@Url.Action("POIDetails", "ExploreMelbourne", new { id = @item.Id })" class="blog-btn ">View Details</a>
+                                </td>
+                            </tr>
+
+                        }
+                    </tbody>
+                </table>
+
+            </div>
+            <div class="col-12 text-center my-2">
+                <a href="@Url.Action("POIs", "ExploreMelbourne", new { id = @Model.Category.Id })" class="blog-btn ">View More</a>
+
+            </div>
+        </div>
+    </div>
+</section>
